@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 export default function Product({ id, img, categoria, descripcion, marca, modelo, precio, stock, color }) {
-
+  
   const navigate = useNavigate()
 
   return (
@@ -17,7 +17,7 @@ export default function Product({ id, img, categoria, descripcion, marca, modelo
         maxWidth: 345,
         backgroundColor: "#9F6F1",
         borderRadius: "12px",
-        boxShadow: "0 4px  10px rga(0,0,0,0.05"
+        boxShadow: "0 4px  10px rgba(0,0,0,0.05"
       }}>
         <CardMedia
           component="img"
