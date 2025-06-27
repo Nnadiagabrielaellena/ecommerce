@@ -18,8 +18,9 @@ import CheckIcon from "@mui/icons-material/Check";
 function DetailProduct() {
   const {idProduct}= useParams()
   const [product, setProduct]= useState({})
+  const [cantidadCarrito, setCantidadCarrito]=useState(1)
 
-  useEffect(()=>{
+  useEffect(()=>{ zzz
     async function obtenerProducto(){
       try {
         const documentoRef= doc(db,"billetera",idProduct)

@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router';
+
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem, Container, Avatar, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useNavigate } from 'react-router';
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+
 import { borderBottom } from '@mui/system';
+
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { CartContext } from '../contex/CartContext';
 
 const categorias = ['negro', 'marron', "estrella"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
+  const {countInCart}= useContext(CartContext)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -26,12 +34,12 @@ function Header() {
 
   return (
     <AppBar position="static"
-    sx={{
-      backgroundColor :"#F5F0EA",
-      color :"#3B2F2F",
-      boxShadow : "none",
-      borderBottom :"1px solid #E0DAD2"
-    }}>
+      sx={{
+        backgroundColor: "#F5F0EA",
+        color: "#3B2F2F",
+        boxShadow: "none",
+        borderBottom: "1px solid #E0DAD2"
+      }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* LOGO DESKTOP */}
@@ -81,15 +89,15 @@ function Header() {
           <Typography
             onClick={() => navigate("/")}
             variant="h6"
-            
+
             component="div"
             sx={{
               mr: 2,
-              fontWeight:600,
-              cursoir :"pointer",
-              color:"#3B2F2F",
-              "&:hover":{
-                color:"#C89F6A"
+              fontWeight: 600,
+              cursoir: "pointer",
+              color: "#3B2F2F",
+              "&:hover": {
+                color: "#C89F6A"
               },
               display: { xs: 'flex', md: 'none' },
               fontFamily: 'monospace',
@@ -109,13 +117,14 @@ function Header() {
               <Button
                 key={page}
                 onClick={() => handleCategoryClick(page)}
-                sx={{ my: 2, 
+                sx={{
+                  my: 2,
                   color: '#3B2F2F',
-                  "&:hover":{
-                    backgroundColor:"#F1E8DC",
-                    color:"#8B5E3C"
+                  "&:hover": {
+                    backgroundColor: "#F1E8DC",
+                    color: "#8B5E3C"
                   }
-                  }}
+                }}
               >
                 {page}
               </Button>
@@ -124,7 +133,10 @@ function Header() {
 
           {/* AVATAR */}
           <Box sx={{ flexGrow: 0 }}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Badge badgeContent={ countInCart()} color="error">
+             <ShoppingCartIcon onClick={() => navigate("/cart")} />
+            </Badge>
+            
           </Box>
         </Toolbar>
       </Container>

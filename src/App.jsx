@@ -9,13 +9,16 @@ import { ThemeProvider, createTheme } from "@mui/material/styles" // ✅ Correct
 
 import DetailProduct from "./views/DetailProduct"
 import Cart from "./views/Cart"
+import CardContextProvider from "./contex/CartContext"
 
 function App() {
+  
 
   const theme = createTheme({})
   return (
     <>
     <ThemeProvider theme={theme} >
+      <CardContextProvider>
       <BrowserRouter>
       <Header />
       <Routes>
@@ -28,6 +31,7 @@ function App() {
       
       </Routes>
       </BrowserRouter>
+      </CardContextProvider>
       </ThemeProvider>
     </>
   )

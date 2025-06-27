@@ -6,10 +6,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router';
+import { useContext } from 'react';
+import { CartContext } from '../contex/CartContext';
 
 export default function Product({ id, img, categoria, descripcion, marca, modelo, precio, stock, color }) {
   
   const navigate = useNavigate()
+  const cartContex = useContext(CartContext)
 
   return (
     <Grid>
@@ -45,17 +48,28 @@ export default function Product({ id, img, categoria, descripcion, marca, modelo
             padding:"6px 12px",
             fontWeight:500,
           }} onClick={() => navigate(`/detail/${id}`)} size="small">Ver Detalle</Button>
-          <Button sx={{
-            backgroundColor: "#A0522D",
-            color: " #fff",
-            "&:hover": {
-              backgroundColor: "#C47A3E",
-            },
-            textTransform:"none",
-            borderRadius:"6px",
-            padding:"6px 12px",
-            fontWeight:500,
-          }}  size="small" >Agregar al carrito</Button>
+          <Button
+  sx={{
+    backgroundColor: "#A0522D",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#C47A3E",
+    },
+    textTransform: "none",
+    borderRadius: "6px",
+    padding: "6px 12px",
+    fontWeight: 500,
+  }}
+  size="small"
+  onClick={() =>
+    cartContex.addToCard(
+      { id, img, categoria, descripcion, marca, modelo, precio, stock, color },
+      1
+    )
+  }
+>
+  Agregar al carrito
+</Button>
         </CardActions>
       </Card>
     </Grid>
