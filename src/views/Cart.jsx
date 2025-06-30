@@ -1,6 +1,6 @@
 
 
-import { Grid, TextField } from '@mui/material'
+import {  Grid, TextField } from '@mui/material'
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -12,15 +12,27 @@ import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 
 
-import { useContext } from 'react';
+import { useContext,  } from 'react';
 import { CartContext } from '../contex/CartContext';
+
+import { useNavigate } from 'react-router';
 
 
 
 function Cart() {
 
-  const { cart, setCantidadInProduct} = useContext(CartContext)
+  const { cart, setCantidadInProduct,eliminarProductInCartXid,  valorTotalInCart, valorTotalProductInCartxId} = useContext(CartContext)
+
+  const navigate = useNavigate()
+
+  function controladorSetcontadorInProduct(id,e, stock){
+    if(e.target.value>0 && e.target.value <= stock){
+      setCantidadInProduct(id,Number(e.target.value))
+    }
+    
+  }
   return (
+    <>
     <Grid
     container
     direction= "row"
@@ -53,7 +65,8 @@ cart.map(productInCart=>
       <Typography variant="body2" sx={{ color: "#555" }}>
         
       </Typography>
-      <TextField type="number" onChange={(e)=>setCantidadInProduct(productInCart.id,Number(e.target.value))} defaultValue={productInCart.cantidad} label="cantidad" variante="Outlined" />
+      <TextField type="number" value={productInCart.cantidad||1} onChange={(e)=>controladorSetcontadorInProduct(productInCart.id, e, productInCart.stock)}  label="antidad" variant="outlined" />
+    
     </CardContent>
     <CardActions>
       <Button sx={{
@@ -66,36 +79,34 @@ cart.map(productInCart=>
         borderRadius:"6px",
         padding:"6px 12px",
         fontWeight:500,
-      }} onClick={() => navigate(`/detail/${id}`)} size="small">Ver Detalle</Button>
-     {/* <Button
-sx={{
-backgroundColor: "#A0522D",
-color: "#fff",
-"&:hover": {
-  backgroundColor: "#C47A3E",
-},
-textTransform: "none",
-borderRadius: "6px",
-padding: "6px 12px",
-fontWeight: 500,
-}}
-size="small"
-onClick={() =>
-cartContex.addToCard(
-  { id, img, categoria, descripcion, marca, modelo, precio, stock, color },
-  1
-)
-}
->
-Agregar al carrito
-</Button>*/}
-
+      }}onClick={() => navigate(`/detail/${productInCart.id}`)} size="small">Ver Detalle</Button>
+      <Button sx={{
+        backgroundColor: "#A0522D",
+        color: " #fff",
+        "&:hover": {
+          backgroundColor: "#C47A3E",
+        },
+        textTransform:"none",
+        borderRadius:"6px",
+        padding:"6px 12px",
+        fontWeight:500,
+      }} onClick={()=>eliminarProductInCartXid(productInCart.id)} size="small">eliminar</Button>
+     <Grid>
+     <Typography variant="body2" sx={{ color: "#555" }}>
+  Total: ${valorTotalProductInCartxId(productInCart.id)}
+</Typography>
+    </Grid>
     </CardActions>
   </Card>
 </Grid>
   )
       }
     </Grid>
+    <Grid sx={{ mt: 4, textAlign: "center" }}>
+  <Typography variant="h6">Total del carrito: ${valorTotalInCart()}</Typography>
+</Grid>
+
+    </> 
   )
 }
 

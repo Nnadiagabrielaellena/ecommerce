@@ -63,11 +63,31 @@ const CartContextProvider = ({ children }) => {
                   }
             }
       }
+
+      function eliminarProductInCartXid(id) {
+            const newCart = cart.filter(productInCart => productInCart.id !== id)
+            setCart(newCart)
+          }
+
+          function valorTotalInCart(){
+          return cart.reduce((acc, curr)=>{
+return acc + curr.precio * curr.cantidad
+          },0)
+      }
+
+      function valorTotalProductInCartxId(id){
+            const productoBuscado = cart.find(productInCart=> productInCart.id == id )
+            const suma = productoBuscado.precio * productoBuscado.cantidad
+            return suma
+      }
       const data = {
             addToCard,
             cart,
             countInCart,
-            setCantidadInProduct
+            setCantidadInProduct,
+            eliminarProductInCartXid,
+            valorTotalInCart,
+            valorTotalProductInCartxId
 
       }
 

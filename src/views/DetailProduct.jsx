@@ -20,7 +20,7 @@ function DetailProduct() {
   const [product, setProduct]= useState({})
   const [cantidadCarrito, setCantidadCarrito]=useState(1)
 
-  useEffect(()=>{ zzz
+  useEffect(()=>{
     async function obtenerProducto(){
       try {
         const documentoRef= doc(db,"billetera",idProduct)
